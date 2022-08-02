@@ -13,7 +13,7 @@ function App() {
 
     return (
         <BrowserRouter>
-            <Layout className="layout">
+            <Layout className="layout" >
                 <Header>
                     <Menu
                         theme="dark"
@@ -22,7 +22,7 @@ function App() {
                         <Menu.Item key="user"><Link to="/user">user</Link></Menu.Item>
                     </Menu>
                 </Header>
-                <Content style={{ padding: '0 50px' }}>
+                <Content style={{ padding: '0 50px', width:"60%", marginLeft: "auto", marginRight : "auto"}}>
                     <Breadcrumb style={{ margin: '16px 0' }}>
                         <Breadcrumb.Item>Home</Breadcrumb.Item>
                         <Breadcrumb.Item>List</Breadcrumb.Item>

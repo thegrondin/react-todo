@@ -1,5 +1,7 @@
 import React, {useEffect} from 'react';
-import {Button, Checkbox, Input, List} from "antd";
+import * as S from './styles';
+import { DeleteOutlined } from '@ant-design/icons';
+import {Button, List, Tooltip} from "antd";
 import {Item} from "../api/ItemService";
 import {
     handleCreateItem,
@@ -9,8 +11,11 @@ import {
     handleSendEdit,
     handleInputUpdate
 } from "../handlers/todoListHandlers";
+import {API_URL} from "../../../config";
 
 function TodoList() {
+
+    console.log(API_URL)
 
     const [todoList, setTodoList] = React.useState([] as Item[]);
 
@@ -32,18 +37,23 @@ function TodoList() {
                 bordered
                 dataSource={todoList}
                 renderItem={item => (
-                    <List.Item>
-                        <Checkbox checked={item.done} onChange={(e) => handleToggleItem(e, item, setTodoList)}/>
+                    <S.TodoItem className={item.done ? 'done' : ''}>
+                        <S.TodoCheckbox checked={item.done} onChange={(e) => handleToggleItem(e, item, setTodoList)}/>
                         <List.Item.Meta
                             title={
-                            <Input
+                            <S.TodoTitleInput
                                 value={item.title}
-                                onChange={ (e) => handleInputUpdate(e, item, setTodoList, todoList)}
+                                onChange={(e) => handleInputUpdate(e, item, setTodoList, todoList)}
                                 onKeyPress={(e) => handleSendEdit(e, item, setTodoList)}
                             />}
                         />
-                        <Button danger onClick={(e) => handleDeleteItem(setTodoList, item.id)}>Delete</Button>
-                    </List.Item>
+                        <Tooltip title="Delete">
+                            <Button danger
+                                    shape="circle"
+                                    icon={<DeleteOutlined />}
+                                    onClick={(e) => handleDeleteItem(setTodoList, item.id)}/>
+                        </Tooltip>
+                    </S.TodoItem>
                 )}
             />
         </div>
