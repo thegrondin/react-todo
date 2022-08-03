@@ -18,18 +18,15 @@ export const TodoCheckbox = styled(Checkbox)`
     }
 `
 
-export const TodoItem = styled(List.Item)`
+export const TodoItem = styled(List.Item)<{$isDone : boolean}>`
     margin-left: 24px;
     margin-right: 24px;
     margin-bottom: 16px;
     padding-left: 0;
-    background-color: #fafafa;
     border-radius: 15px;
     border: 1px solid #e8e8e8;
   
-    &.done {
-        background-color: #f6ffed;
-    }
+    background-color: ${({$isDone}) => $isDone ? '#f6ffed' : '#fafafa'};
 `
 
 export const TodoTitleInput = styled(Input)`

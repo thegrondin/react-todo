@@ -40,17 +40,15 @@ export const handleDeleteItem = async (setTodoList: ReactSetDispatch, id?: numbe
     setTodoList(items);
 }
 
+// Seperated state for input
 export const handleInputUpdate = (
     e : React.ChangeEvent<HTMLInputElement>,
     item: Item,
     setTodoList : ReactSetDispatch,
     todoList : Item[]) => {
 
-    console.log(e.target.value);
-
     const newTodoList = todoList.map(todo => {
         if (todo.id === item.id) {
-            console.log(e.target.value);
             return {...todo, title: e.currentTarget.value};
         }
         return todo;

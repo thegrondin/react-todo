@@ -1,9 +1,7 @@
 import React from 'react';
-import {Divider, List} from "antd";
 import Login from "../features/user/components/Login";
 
-
-function User() {
+function Auth() {
     return (
         <div>
             <Login />
@@ -11,4 +9,5 @@ function User() {
     );
 }
 
-export default User;
+
+export default Auth;

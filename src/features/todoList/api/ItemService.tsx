@@ -1,3 +1,4 @@
+import {client} from "../../../api/utils";
 
 
 interface Item {
@@ -19,8 +20,7 @@ function convertToItem(rawItem : any) : Item {
 }
 
 async function getAll(): Promise<Item[]> {
-    const response = await fetch('http://localhost:1337/api/todo')
-    const content = await response.json();
+    const content = await client("api/todo");
 
     const result = content.data.map(async (item : any) => {
         return convertToItem(item);
@@ -30,51 +30,37 @@ async function getAll(): Promise<Item[]> {
 }
 
 async function updateSingle(item : Item) {
-    const request = await fetch(`http://localhost:1337/api/todo/${item.id}`, {
+    const response = await client(`api/todo/${item.id}`, {
         method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
+        body: {
             data: {
                 ...item
             }
-        })
-    });
+        }
+    })
 
-    const response = await request.json();
     return convertToItem(response.data);
 }
 
 async function createSingle(item : Item) {
-
     delete item.id;
-    const request = await fetch('http://localhost:1337/api/todo', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(
-            {
-                data: {
-                    ...item
-                }
-            }
-        )
-    });
-    const response = await request.json();
-    return convertToItem(response.data);
 
+    const response = await client(`api/todo/`, {
+        body: {
+            data: {
+                ...item
+            }
+        }
+    })
+
+    return convertToItem(response.data);
 }
 
 async function deleteSingle(id : number){
-    const request = await fetch(`http://localhost:1337/api/todo/${id}`, {
+    const response = await client(`api/todo/${id}`, {
         method: 'DELETE'
-    });
-
-    const response = await request.json();
+    })
     return convertToItem(response.data);
-
 }
 
 const ItemService = {

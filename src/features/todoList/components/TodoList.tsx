@@ -11,12 +11,11 @@ import {
     handleSendEdit,
     handleInputUpdate
 } from "../handlers/todoListHandlers";
-import {API_URL} from "../../../config";
+
+// Input, useForm.
+// TodoItem dans son propre component
 
 function TodoList() {
-
-    console.log(API_URL)
-
     const [todoList, setTodoList] = React.useState([] as Item[]);
 
     useEffect(() => {
@@ -37,7 +36,7 @@ function TodoList() {
                 bordered
                 dataSource={todoList}
                 renderItem={item => (
-                    <S.TodoItem className={item.done ? 'done' : ''}>
+                    <S.TodoItem $isDone={item.done}>
                         <S.TodoCheckbox checked={item.done} onChange={(e) => handleToggleItem(e, item, setTodoList)}/>
                         <List.Item.Meta
                             title={
