@@ -1,6 +1,6 @@
 import React from 'react';
 import {Divider, List} from "antd";
-import Login from "../features/user/components/Login";
+import Login from "../features/auth/components/Login";
 
 
 function User() {

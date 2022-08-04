@@ -1,5 +1,5 @@
 import {client} from "../../../api/utils";
-import {User} from "./UserService";
+import {User} from "../../user/api/UserService";
 
 const login = async (email: string, password: string) : Promise<User> => {
     const response = await client('api/auth/local', {
