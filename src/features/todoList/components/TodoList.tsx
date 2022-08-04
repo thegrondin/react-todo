@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import * as S from './styles';
 import { DeleteOutlined } from '@ant-design/icons';
-import {Button, List, Tooltip} from "antd";
+import {Button, Divider, List, Tooltip} from "antd";
 import {Item} from "../api/ItemService";
 import {
     handleCreateItem,
@@ -11,6 +11,7 @@ import {
     handleSendEdit,
     handleInputUpdate
 } from "../handlers/todoListHandlers";
+import UserCard from "../../user/components/UserCard";
 
 // Input, useForm.
 // TodoItem dans son propre component
@@ -26,6 +27,8 @@ function TodoList() {
 
     return (
         <div>
+            <UserCard/>
+            <Divider />
             <List
                 size="large"
                 header={<>
@@ -50,7 +53,7 @@ function TodoList() {
                             <Button danger
                                     shape="circle"
                                     icon={<DeleteOutlined />}
-                                    onClick={(e) => handleDeleteItem(setTodoList, item.id)}/>
+                                    onClick={(_) => handleDeleteItem(setTodoList, item.id)}/>
                         </Tooltip>
                     </S.TodoItem>
                 )}
