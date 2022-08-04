@@ -1,18 +1,20 @@
 import React from 'react';
 import {Button, Card, Checkbox, Form, Input} from "antd";
 import AuthService from "../api/AuthService";
-import UserService from "../../user/api/UserService";
 
 import * as S from './styles';
 import useAuth from "../use/useAuth";
+import useUser from "../../user/use/useUser";
 
 function Login() {
 
     const {state: {authenticated}, actions: {setAuthenticated}} : any = useAuth();
+    const {state: {user}, actions: {setUser}} : any = useUser();
 
     const onFinish = async (values: any) => {
         const user = await AuthService.login(values.username, values.password)
         setAuthenticated(!!user)
+        setUser(user)
     };
 
     const onFinishFailed = (errorInfo: any) => {
