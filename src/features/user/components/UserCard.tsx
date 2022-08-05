@@ -5,11 +5,11 @@ import {API_URL} from "../../../config";
 const { Text } = Typography;
 
 
-function UserCard() {
+function UserCard({title} : any) {
 
     const {state: {user}} : any = useUser();
     return (
-        <S.Card style={{ width: 320}}>
+        <S.Card style={{ width: 320}} title={title ? "Your profile" : ""}>
             <S.Profile>
                 <Image
                     src={API_URL + user.avatar}

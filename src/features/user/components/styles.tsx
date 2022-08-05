@@ -17,8 +17,7 @@ export const Profile = styled.div`
       border-radius: 100%;
       width: 75px;
     }
-  
-    `
+`
 
 export const ProfileInfo = styled.div`
     margin-left: 10px;   
@@ -27,4 +26,16 @@ export const ProfileInfo = styled.div`
       width: 100%;
       display: block;
     }
+`
+
+export const ActionItem = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+`
+
+export const ActionCard = styled(Card)`
+  width: 400px;
+  margin-left: 15px;
 `

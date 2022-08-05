@@ -14,9 +14,7 @@ interface User {
 }
 
 const getCurrentUser = async () : Promise<User | null> => {
-
     const response = await client(`api/users/me?populate=%2A`)
-    console.log("response", response)
 
     if (response && response.id) {
         response.avatar = response.avatar.url
