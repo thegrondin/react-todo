@@ -56,7 +56,7 @@ async function createSingle(item : Item) {
     return convertToItem(response.data);
 }
 
-async function deleteSingle(id : number){
+async function deleteSingle(id: number | undefined){
     const response = await client(`api/todo/${id}`, {
         method: 'DELETE'
     })

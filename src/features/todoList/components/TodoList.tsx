@@ -1,29 +1,35 @@
 import React, {useEffect} from 'react';
 import * as S from './styles';
-import { DeleteOutlined } from '@ant-design/icons';
 import {Button, Divider, List, Tooltip} from "antd";
-import {Item} from "../api/ItemService";
-import {
-    handleCreateItem,
-    handleDeleteItem,
-    handleRefresh,
-    handleToggleItem,
-    handleSendEdit,
-    handleInputUpdate
-} from "../handlers/todoListHandlers";
+import ItemService, {Item} from "../api/ItemService";
 import UserCard from "../../user/components/UserCard";
-
-// Input, useForm.
-// TodoItem dans son propre component
+import TodoItem from "./TodoItem";
 
 function TodoList() {
     const [todoList, setTodoList] = React.useState([] as Item[]);
 
+    const handleCreate = async (e: any) => {
+        const newItem = {
+            title: 'New Item',
+            done: false
+        } as Item;
+
+        await ItemService.createSingle(newItem);
+        const items = await ItemService.getAll();
+        setTodoList(items);
+    }
+
+    const handleRefresh = async (e: any) => {
+        const items = await ItemService.getAll();
+        setTodoList(items);
+    }
+
     useEffect(() => {
         (async () => {
-            await handleRefresh(setTodoList);
+            await handleRefresh(null);
         })();
     }, [])
+
 
     return (
         <div>
@@ -33,29 +39,13 @@ function TodoList() {
                 size="large"
                 header={<>
                     <h2>Your list</h2>
-                    <Button type="primary" onClick={() => handleCreateItem(setTodoList)}>Add new Item</Button>
-                    <Button onClick={() => handleRefresh(setTodoList)}>Refresh</Button>
+                    <Button type="primary" onClick={handleCreate}>Add new Item</Button>
+                    <Button onClick={handleRefresh}>Refresh</Button>
                 </>}
                 bordered
                 dataSource={todoList}
                 renderItem={item => (
-                    <S.TodoItem $isDone={item.done}>
-                        <S.TodoCheckbox checked={item.done} onChange={(e) => handleToggleItem(e, item, setTodoList)}/>
-                        <List.Item.Meta
-                            title={
-                            <S.TodoTitleInput
-                                value={item.title}
-                                onChange={(e) => handleInputUpdate(e, item, setTodoList, todoList)}
-                                onKeyPress={(e) => handleSendEdit(e, item, setTodoList)}
-                            />}
-                        />
-                        <Tooltip title="Delete">
-                            <Button danger
-                                    shape="circle"
-                                    icon={<DeleteOutlined />}
-                                    onClick={(_) => handleDeleteItem(setTodoList, item.id)}/>
-                        </Tooltip>
-                    </S.TodoItem>
+                    <TodoItem item={item} setTodoList={setTodoList}/>
                 )}
             />
         </div>

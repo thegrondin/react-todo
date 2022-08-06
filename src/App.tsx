@@ -48,11 +48,3 @@ function App() {
 }
 
 export default App;
-
-/*
-
-<Route path="/" element={<PrivateRoute redirect="/auth" isAuthenticated={authenticated} authRefresh={evaluateIsAuthenticated}><Todo /></PrivateRoute>} />
-                        <Route path="user" element={<PrivateRoute redirect="/auth" isAuthenticated={authenticated} authRefresh={evaluateIsAuthenticated} ><User /></PrivateRoute>} />
-                        <Route path="/auth" element={<PublicRoute redirect="/" isAuthenticated={authenticated} authRefresh={evaluateIsAuthenticated}><Auth /></PublicRoute>} />
-
- */
