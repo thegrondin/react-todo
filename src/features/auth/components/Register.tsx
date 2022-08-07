@@ -1,21 +1,26 @@
-import React from 'react';
-import {Button, Checkbox, Form, Input} from "antd";
-import AuthService from "../api/AuthService";
-
+import react from 'react';
 import * as S from './styles';
+import {Form, Input} from "antd";
+import AuthService from "../api/AuthService";
+import {User} from "../../user/api/UserService";
 import useAuth from "../use/useAuth";
 import useUser from "../../user/use/useUser";
-import {AuthActionCard} from "./styles";
-import {Link} from "react-router-dom";
-import {AuthActions} from "../../../containers/Auth";
 
-function Login({setAction}: any) {
+function Register({setAction}: any) {
 
     const {actions: {setAuthenticated}} : any = useAuth();
     const {actions: {setUser}} : any = useUser();
 
     const onFinish = async (values: any) => {
-        const user = await AuthService.login(values.username, values.password)
+
+        const newUser = {
+            username: values.username,
+            lastname: values.lastname,
+            firstname: values.firstname,
+            email: values.email,
+        } as User
+
+        const user = await AuthService.register(newUser, values.password)
         setAuthenticated(!!user)
         setUser(user)
     };
@@ -24,9 +29,8 @@ function Login({setAction}: any) {
         console.log('Failed:', errorInfo);
     };
 
-
     return (
-        <S.AuthActionCard title="Login" style={{ width: 500 }}>
+        <S.AuthActionCard>
             <Form
                 name="basic"
                 labelCol={{ span: 8 }}
@@ -37,10 +41,26 @@ function Login({setAction}: any) {
                 autoComplete="off"
             >
                 <Form.Item
+                    label="Firstname"
+                    name="firstname"
+                    rules={[{ required: true, message: 'Please input your firstname!' }]}
+                    >
+                    <Input />
+                </Form.Item>
+
+                <Form.Item
+                    label="Lastname"
+                    name="lastname"
+                    rules={[{ required: true, message: 'Please input your lastname!' }]}
+                    >
+                    <Input />
+                </Form.Item>
+
+                <Form.Item
                     label="Username"
                     name="username"
                     rules={[{ required: true, message: 'Please input your username!' }]}
-                >
+                    >
                     <Input />
                 </Form.Item>
 
@@ -48,25 +68,13 @@ function Login({setAction}: any) {
                     label="Password"
                     name="password"
                     rules={[{ required: true, message: 'Please input your password!' }]}
-                >
+                    >
                     <Input.Password />
                 </Form.Item>
-
-                <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
-                    <Checkbox>Remember me</Checkbox>
-                </Form.Item>
-
-                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                    <Button type="primary" htmlType="submit">
-                        Submit
-                    </Button>
-                </Form.Item>
-
-                <Button onClick={() => setAction(AuthActions.REGISTER)}>Register</Button>
             </Form>
         </S.AuthActionCard>
     );
 }
 
 
-export default Login;
+export default Register;

@@ -5,7 +5,10 @@ export const isAuthenticated = async () => {
     return await UserService.getCurrentUser() !== null;
 }
 
-export const client = async (endpoint : string, {body, ...customConfig} : any = {}, baseUrl : boolean = true) => {
+export const client = async (
+    endpoint : string,
+    {body, ...customConfig} : any = {},
+    baseUrl : boolean = true) => {
     const token = window.localStorage.getItem("auth_bearer")
     const headers = {'Content-Type': 'application/json'} as any
     if (token) {

@@ -16,8 +16,22 @@ const login = async (email: string, password: string) : Promise<User> => {
     return response.user as User
 }
 
-const register = async (email: string, password: string) => {
+const register = async (user : User, password : string) => {
+    const response = await client('api/auth/local/register', {
+        body: {
+            username : user.username,
+            password: password,
+            email: user.email,
+            firstname: user.firstname,
+            lastname: user.lastname,
+        }
+    })
 
+    if (response && response.jwt) {
+        window.localStorage.setItem("auth_bearer", response.jwt)
+    }
+
+    return response.user as User
 }
 
 

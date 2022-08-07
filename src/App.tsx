@@ -36,6 +36,7 @@ function App() {
                                 <Route path="/" element={<RequireAuth><Todo/></RequireAuth>}/>
                                 <Route path="/user" element={<RequireAuth><User/></RequireAuth>}/>
                                 <Route path="/auth" element={<Auth/>}/>
+                                <Route path="/register" element={<Auth/>}/>
                             </Routes>
                         </Content>
                         <Footer style={{ textAlign: 'center' }}>Thomas Dion-Grondin ©2022 Tous droits réservés</Footer>
