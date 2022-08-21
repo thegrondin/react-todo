@@ -1,6 +1,5 @@
-import react from 'react';
 import * as S from './styles';
-import {Form, Input} from "antd";
+import {Button, Form, Input} from "antd";
 import AuthService from "../api/AuthService";
 import {User} from "../../user/api/UserService";
 import useAuth from "../use/useAuth";
@@ -17,7 +16,7 @@ function Register({setAction}: any) {
             username: values.username,
             lastname: values.lastname,
             firstname: values.firstname,
-            email: values.email,
+            email: values.username,
         } as User
 
         const user = await AuthService.register(newUser, values.password)
@@ -70,6 +69,12 @@ function Register({setAction}: any) {
                     rules={[{ required: true, message: 'Please input your password!' }]}
                     >
                     <Input.Password />
+                </Form.Item>
+
+                <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                    <Button type="primary" htmlType="submit">
+                        Submit
+                    </Button>
                 </Form.Item>
             </Form>
         </S.AuthActionCard>

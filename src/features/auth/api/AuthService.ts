@@ -34,10 +34,15 @@ const register = async (user : User, password : string) => {
     return response.user as User
 }
 
+const logout = async () => {
+    window.localStorage.removeItem("auth_bearer")
+}
+
 
 const AuthService = {
     login,
     register,
+    logout,
 }
 
 export default AuthService
